@@ -92,11 +92,13 @@ def command_finder(old_string):
             return new_string
         else:
             new_string += x
-            
-def item_finder(old_string, new_string):
-    string_check = (old_string - new_string)
-    if string_check == coat_stand_dict:
+
+
+def item_finder(old_string):
+    string_check = old_string.split(" ", 1)
+    if string_check[1] == coat_stand_dict:
         return coat_stand_dict
+
 
 while True:
     sleep(1)
@@ -109,12 +111,4 @@ while True:
         current_room = current_room.move(command)
     else:
         if command in ["use", "look", "read", "wear", "open", "break", "sit", "spread"]:
-            current_item = item_finder(command, command_finder(command))
-            Item.use(current_item, command)
-
-    #    else:
-    #       if command == ["talk"]:
-    #            if inhabitant is not None:
-    #                inhabitant.talk()
-    #        else:
-    #            print("Who are you talking to?")
+            print(item_finder(command))

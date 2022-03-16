@@ -1,5 +1,6 @@
 from Rooms import Room
 from Items import Item
+from time import sleep
 
 # Kitchen
 kitchen = Room("kitchen")
@@ -23,7 +24,7 @@ cooker.set_description("A white gas cooker with 4 rings on the hob and a grill a
 
 # Cutlery, plates etc
 mug = Item("mug")
-mug.set_description(" A mug for drinking out of, it commemorates the death of Princess Diana")
+mug.set_description("A mug for drinking out of, it commemorates the death of Princess Diana")
 
 plate = Item("plate")
 plate.set_description("A white ceramic plate with a blue rim, slightly chipped")
@@ -159,10 +160,15 @@ a door on the west wall leads to the bathroom.
 """)
 
 # Things in the Hall
-coat_stand = Item("coat stand")
-coat_stand.set_description("""
+coat_stand_dict = {"look": """
 A wooden stand for hanging coats on, maybe hats and scarves too. You can put umbrellas in the base
-""")
+""", "use" : " You hang your jacket on the coat stand"}
+
+coat_stand = Item("coat stand", coat_stand_dict)
+# coat_stand.set_description({"look": """
+# A wooden stand for hanging coats on, maybe hats and scarves too. You can put umbrellas in the base
+# """, "use" : " You hang your jacket on the coat stand"})
+
 
 key_hook = Item("key hook")
 key_hook.set_description("Hooks for hanging keys on, there's a spare set here for the front door.")
@@ -282,11 +288,24 @@ key_hook.link_item(hall, "use")
 current_room = hall
 current_item = coat_stand
 
+# Command Finder
+
+def command_finder(old_string):
+    new_string = ''
+    for x in old_string:
+        if x == ' ':
+            return new_string
+        else:
+            new_string += x
+
+
 while True:
+    sleep(1)
     print("\n")
     current_room.get_description()
     current_room.get_details()
     command = input("> ")
+    command_finder(command)
     if command in ["north", "south", "east", "west"]:
         current_room = current_room.move(command)
     else:
@@ -299,4 +318,3 @@ while True:
     #                inhabitant.talk()
     #        else:
     #            print("Who are you talking to?")
-

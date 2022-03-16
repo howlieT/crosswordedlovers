@@ -40,6 +40,7 @@ A wooden stand for hanging coats on, maybe hats and scarves too. You can put umb
 """, "use": " You hang your jacket on the coat stand"}
 
 coat_stand = Item("coat stand", coat_stand_dict)
+
 # Bathroom
 bathroom = Room("bathroom")
 bathroom.set_description("""
@@ -97,7 +98,7 @@ def command_finder(old_string):
 def item_finder(old_string):
     string_check = old_string.split(" ", 1)
     if string_check[1] in coat_stand_dict:
-        return coat_stand_dict
+        return coat_stand_dict[1]
     else:
         return "You can't do that"
 

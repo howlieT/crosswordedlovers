@@ -96,8 +96,10 @@ def command_finder(old_string):
 
 def item_finder(old_string):
     string_check = old_string.split(" ", 1)
-    if string_check[1] == coat_stand_dict:
+    if string_check[1] in coat_stand_dict:
         return coat_stand_dict
+    else:
+        return "You can't do that"
 
 
 while True:

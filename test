@@ -1,0 +1,115 @@
+from Rooms import Room
+from Items import Item
+from time import time, sleep
+
+kitchen = Room("kitchen")
+kitchen.set_description("""
+The Kitchen
+-----------------------------
+A small bright room, there is a cooker beside the door, 
+and a sink under one window, opposite the door a second window overlooks the garden.
+Everything is bright and light, the linoleum is yellow, the cupboards are cream,
+the trims are blue""")
+
+
+# Bedroom
+bedroom = Room("bedroom")
+bedroom.set_description("""
+The Bedroom 
+----------------------------
+The walls are blue, there is a table with a lamp on it on either side of
+the bed on the east wall. On one side, there is a small stack of books and an alarm clock. 
+The furniture is pine, the curtains are darker blue and match the carpet.
+There is a pine chest  of drawers against the west wall.
+""")
+
+# Hall
+hall = Room("hall")
+hall.set_description("""
+The Hall
+------------------------------
+There is not much natural light in here. Some comes through the glass panels
+in the front door. There is a coat stand on the east wall, there is a key hook 
+on the west wall. At the southern end you can see the kitchen. A door on the east wall leads to the bedroom,
+a door on the west wall leads to the bathroom.
+""")
+
+# Things in the Hall
+coat_stand_dict = {"look": """
+A wooden stand for hanging coats on, maybe hats and scarves too. You can put umbrellas in the base
+""", "use": " You hang your jacket on the coat stand"}
+
+coat_stand = Item("coat stand", coat_stand_dict)
+# Bathroom
+bathroom = Room("bathroom")
+bathroom.set_description("""
+The Bathroom
+--------------------------
+This room is white. There is a toilet and a sink and a bathtub with a shower. 
+The shower curtain is also white, and is slightly mouldy at the base. The glass 
+in the window is frosted. There is a mirrored cabinet above the sink. There is
+a towel on the radiator.
+""")
+
+# Garden
+garden = Room("garden")
+garden.set_description("""
+The Garden
+-----------------------
+A smallish, squarish sort of a garden on the southern side of the house but only accessible from the front. 
+There is a tree at the end,
+the lawn looks to be in need of mowing. There are beds of flowers up both sides which buzz lazily
+with bees and other insects. There is a small set of bistro furniture just beside the house.
+On the wall behind the tree, a cat snoozes in the sun.
+""")
+
+# Linking Rooms
+hall.link_room(garden, "north")
+hall.link_room(kitchen, "south")
+hall.link_room(bathroom, "west")
+hall.link_room(bedroom, "east")
+kitchen.link_room(hall, "north")
+bedroom.link_room(hall, "west")
+bathroom.link_room(hall, "east")
+garden.link_room(hall, "south")
+
+# Linking Items to Rooms
+
+# Hall Links
+coat_stand.link_item(hall, "use")
+
+# Movement and Interaction Commands
+current_room = hall
+current_item = coat_stand
+
+# Command Finder
+
+
+def command_finder(old_string):
+    new_string = ''
+    for x in old_string:
+        if x == ' ':
+            return new_string
+        else:
+            new_string += x
+
+
+while True:
+    sleep(1)
+    print("\n")
+    current_room.get_description()
+    current_room.get_details()
+    command = input("> ")
+    command_finder(command)
+    if command in ["north", "south", "east", "west"]:
+        current_room = current_room.move(command)
+    else:
+        if command in ["use", "look", "read", "wear", "open", "break", "sit", "spread"]:
+            current_item = current_item.use(command)
+
+    #    else:
+    #       if command == ["talk"]:
+    #            if inhabitant is not None:
+    #                inhabitant.talk()
+    #        else:
+    #            print("Who are you talking to?")

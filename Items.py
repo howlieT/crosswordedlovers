@@ -19,16 +19,18 @@ class Item():
     def describe(self):
         print(self.description)
 
+    def link_item_action(self, item_to_link, action):
+        self.link_item_action = item_to_link
+
     def get_details(self):
         print(self.description)
+        for action in self.link_item_action:
+            item = self.link_item_action[action]
+        print(" " + Item.get_description())
 
-    def link_item(self, item_to_link, room):
-        self.linked_item[room] = item_to_link
-
-    def use(self, use):
-        if use in self.linked_item:
-            return self.linked_item[use]
+    def action(self, action):
+        if action in self.link_item_action:
+            return self.link_item_action[action]
         else:
             print("You can't do that")
             return self
-

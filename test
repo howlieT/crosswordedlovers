@@ -35,9 +35,9 @@ a door on the west wall leads to the bathroom.
 """)
 
 # Things in the Hall
-coat_stand_dict = {"look": """
-A wooden stand for hanging coats on, maybe hats and scarves too. You can put umbrellas in the base
-""", "use": " You hang your jacket on the coat stand"}
+coat_stand_dict = {"look coat stand": "A wooden stand for hanging coats on, maybe hats and scarves too. "
+                                      "You can put umbrellas in the base.",
+                   "use coat stand": " You hang your jacket on the coat stand"}
 
 coat_stand = Item("coat stand", coat_stand_dict)
 
@@ -77,7 +77,7 @@ garden.link_room(hall, "south")
 # Linking Items to Rooms
 
 # Hall Links
-coat_stand.link_item(hall, "use")
+coat_stand.link_item_action(coat_stand, "look")
 
 # Movement and Interaction Commands
 current_room = hall
@@ -87,20 +87,13 @@ current_item = coat_stand
 
 
 def command_finder(old_string):
-    new_string = ''
-    for x in old_string:
-        if x == ' ':
-            return new_string
-        else:
-            new_string += x
+    new_string = old_string.split(" ", 1)
+    return new_string
 
 
-def item_finder(old_string):
-    string_check = old_string.split(" ", 1)
-    if string_check not in coat_stand_dict:
-        return "You can't do that"
-    else:
-        return "test string"
+def item_finder(string):
+    matching_item = [val for key, val in coat_stand_dict.items() if string in key]
+    return print(str(matching_item))
 
 
 while True:
@@ -108,10 +101,12 @@ while True:
     print("\n")
     current_room.get_description()
     current_room.get_details()
+    current_item.get_description()
     command = input("> ")
     command_finder(command)
-    if command in ["north", "south", "east", "west"]:
-        current_room = current_room.move(command)
+    if command not in ["north", "south", "east", "west"]:
+        sleep(1)
+        print(item_finder(command))
     else:
-        if command in ["use", "look", "read", "wear", "open", "break", "sit", "spread"]:
-            print(item_finder(command))
+        sleep(3)
+        current_room = current_room.move(command)

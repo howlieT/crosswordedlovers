@@ -110,3 +110,8 @@ while True:
     else:
         sleep(3)
         current_room = current_room.move(command)
+# TODO: copy test functions to main
+# TODO: fix the fact that object interactions come up with "none"
+# TODO: why does the game re-post the room its in every time you commit a command?
+# TODO: Work out what the hell to do with the whole dictionary situation
+# TODO: Work out how to put back the "you can't do that" functionality of the item command

@@ -318,3 +318,10 @@ while True:
     #                inhabitant.talk()
     #        else:
     #            print("Who are you talking to?")
+
+# TODO: Convert all item descriptions to dicts
+# TODO: Can Item dicts become sub dicts of one big dict?
+# TODO: Work out how to iterate time in the game, maybe a for loop? Maybe counting on by one?
+# TODO: Have interactable items/objects in the description text be a colour? Ask Ivan about that?
+# TODO: Convert cat from Item to Char
+# TODO: Figure out the mechanics for the cross word...

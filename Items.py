@@ -34,3 +34,4 @@ class Item():
         else:
             print("You can't do that")
             return self
+# TODO: Attach objects to spaces
